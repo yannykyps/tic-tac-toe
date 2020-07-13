@@ -26,8 +26,6 @@ io.on("connection", (socket) => {
     
     socket.on("disconnect", () => {
         console.log("User disconnected. ID: ", id);
-        //delete socket.id;
-        //delete clients[socket.id];
         socket.broadcast.emit("User disconnected", id);
 
     });
