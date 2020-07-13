@@ -16,3 +16,20 @@
     margin-bottom: 1rem;
     text-align: center;
 }
+
+.reset button {
+    height: 30px;
+    width: 100px;
+    float: left;
+    margin-left: 180px;
+    margin-top: 5px;
+}
+
+body {
+    text-align: center;
+}
+
+.reset {
+    margin: auto;
+    width: 490px;
+}

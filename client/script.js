@@ -43,7 +43,7 @@ function winner() {
 function draw() {
     $("#message").text("Draw");
     $(".board button").attr("disabled", true);
-    $("#reset").attr("style", "visibility: visible");
+    $(".reset button").attr("style", "visibility: visible");
 }
 
 function whosTurn() {
@@ -58,23 +58,26 @@ function whosTurn() {
 }
 
 function makeMove() {
-
     if ($(this).text().length) {
         return; // If cell is already checked
     }
-
     socket.emit("make.move", {
         symbol: symbol,
         position: $(this).attr("id")
     });
 }
 
+function resetBoard() {
+    $(".board button").text("");
+    $(".reset button").attr("style", "visibility: hidden");
+}
+
 $(function() {
     $(".board button").attr("disabled", true);
     $(".board button").on("click", makeMove);
-    $("#reset").attr("style", "visibility: hidden");
-    $("#reset").on("click", function() {
-        socket.emit("new.game");
+    $(".reset button").attr("style", "visibility: hidden");
+    $(".reset button").on("click", function() {
+        socket.emit("new.game", "");
     });
 });
 
@@ -106,11 +109,11 @@ socket.on("move.made", (data) => {
         }
     
         $(".board button").attr("disabled", true);
-        $("#reset").attr("style", "visibility: visible");
+        $(".reset button").attr("style", "visibility: visible");
     }
 
 })
 
-socket.on("new.game", () => {
-    $(".board button").text("");
+socket.on("reset", () => {
+    resetBoard();
 });

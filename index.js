@@ -52,9 +52,9 @@ io.on("connection", (socket) => {
           
     });
 
-    socket.on("new.game", () => {
-        socket.emit("new.game");
-        hasOpponent(socket).emit("new.game");
+    socket.on("new.game", (reset) => {
+        socket.emit("reset", reset);
+        hasOpponent(socket).emit("reset", reset);
         socket.emit("start.game", { // Send the start game event to the player
             symbol: players[socket.id].symbol
         });
