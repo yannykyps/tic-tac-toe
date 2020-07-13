@@ -52,7 +52,6 @@ function whosTurn() {
         $(".board button").attr("disabled", true);
     } else {
         $("#message").text("Your turn.");
-        //$(".board button").removeAttr("disabled"); 
         $(".board button").attr("disabled", false);
     }
 }

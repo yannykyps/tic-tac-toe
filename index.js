@@ -22,8 +22,7 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
     let id = socket.id;
     console.log("New user connected. ID: ", id);
-    //clients[socket.id] = socket;
-    //console.log(clients);
+
     
     socket.on("disconnect", () => {
         console.log("User disconnected. ID: ", id);
@@ -34,7 +33,6 @@ io.on("connection", (socket) => {
     });
 
     join(socket);
-    //console.log(players);
 
     if (hasOpponent(socket)) { // If the current player has an opponent the game can begin
         socket.emit("start.game", { // Send the start game event to the player

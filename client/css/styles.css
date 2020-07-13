@@ -17,6 +17,11 @@
     text-align: center;
 }
 
+.reset {
+    margin: auto;
+    width: 490px;
+}
+
 .reset button {
     height: 30px;
     width: 100px;
@@ -27,9 +32,4 @@
 
 body {
     text-align: center;
-}
-
-.reset {
-    margin: auto;
-    width: 490px;
 }
