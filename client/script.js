@@ -43,6 +43,7 @@ function winner() {
 function draw() {
     $("#message").text("Draw");
     $(".board button").attr("disabled", true);
+    $("#reset").attr("style", "visibility: visible");
 }
 
 function whosTurn() {
@@ -71,11 +72,13 @@ function makeMove() {
 $(function() {
     $(".board button").attr("disabled", true);
     $(".board button").on("click", makeMove);
-    
+    $("#reset").attr("style", "visibility: hidden");
+    $("#reset").on("click", function() {
+        socket.emit("new.game");
+    });
 });
 
 socket.on("start.game", (data) => {
-    $("#message").text("Ready");
     symbol = data.symbol;
     myTurn = symbol === "X";
     whosTurn();
@@ -103,9 +106,11 @@ socket.on("move.made", (data) => {
         }
     
         $(".board button").attr("disabled", true);
+        $("#reset").attr("style", "visibility: visible");
     }
 
 })
 
-
-
+socket.on("new.game", () => {
+    $(".board button").text("");
+});

@@ -6,7 +6,6 @@ const fs = require("fs");
 const app = express();
 const server = http.Server(app).listen(3000);
 const io = socketIo(server);
-const clients = {};
 
 let players = {};
 let playerWaiting;
@@ -38,11 +37,11 @@ io.on("connection", (socket) => {
     //console.log(players);
 
     if (hasOpponent(socket)) { // If the current player has an opponent the game can begin
-        socket.emit("start.game", { // Send the game.begin event to the player
+        socket.emit("start.game", { // Send the start game event to the player
             symbol: players[socket.id].symbol
         });
 
-        hasOpponent(socket).emit("start.game", { // Send the start.game event to the opponent
+        hasOpponent(socket).emit("start.game", { // Send the start game event to the opponent
             symbol: players[hasOpponent(socket).id].symbol 
         });
     }
@@ -52,6 +51,17 @@ io.on("connection", (socket) => {
         hasOpponent(socket).emit("move.made", data);
           
     });
+
+    socket.on("new.game", () => {
+        socket.emit("new.game");
+        hasOpponent(socket).emit("new.game");
+        socket.emit("start.game", { // Send the start game event to the player
+            symbol: players[socket.id].symbol
+        });
+        hasOpponent(socket).emit("start.game", { // Send the start game event to the opponent
+            symbol: players[hasOpponent(socket).id].symbol 
+        });
+    });
    
     // Event to inform player that the opponent left
     socket.on("disconnect", () => {
@@ -59,6 +69,7 @@ io.on("connection", (socket) => {
         hasOpponent(socket).emit("opponent.left");
         }
     });
+
 });
 
 function join(socket) {
