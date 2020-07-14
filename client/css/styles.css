@@ -17,6 +17,15 @@
     text-align: center;
 }
 
+.player-name {
+    font-size: 1.5rem;
+}
+
+.player-name input {
+    font-size: 1rem;
+    width: 150px;
+}
+
 .reset {
     margin: auto;
     width: 490px;

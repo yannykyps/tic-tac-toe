@@ -12,7 +12,13 @@
 </head>
 <body>
     <h1>Tic-Tac-Toe</h1>
-    <div id="message">Waiting for an opponent...</div>
+    <div class="player-name">
+       <label for="player">Player Name?</label>
+      <input type="text" id="player" name="player1">
+      <button onclick="playerName()">Submit</button>
+    </div>
+ 
+    <div id="message"> Waiting for an opponent...</div>
 
     <div class="board">
       <button id="a3"></button><button id="b3"></button><button id="c3"></button>

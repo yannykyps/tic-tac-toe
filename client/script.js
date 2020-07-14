@@ -47,11 +47,12 @@ function draw() {
 }
 
 function whosTurn() {
+    let name = $("#player").val();
     if (!myTurn) {
         $("#message").text("Your opponent's turn");
         $(".board button").attr("disabled", true);
     } else {
-        $("#message").text("Your turn.");
+        $("#message").text(name + " your turn.");
         $(".board button").attr("disabled", false);
     }
 }
@@ -69,6 +70,13 @@ function makeMove() {
 function resetBoard() {
     $(".board button").text("");
     $(".reset button").attr("style", "visibility: hidden");
+}
+
+function playerName() {
+    let name = $("#player").val();
+    $(".player-name").attr("style", "visibility: hidden");
+    $("#message").text(name + " is waiting on an opponent...")
+
 }
 
 $(function() {
@@ -92,6 +100,7 @@ socket.on("opponent.left", () => {
 });
 
 socket.on("move.made", (data) => {
+    let name = $("#player").val();
     $("#" + data.position).text(data.symbol);
 
     myTurn = data.symbol !== symbol;
@@ -102,9 +111,9 @@ socket.on("move.made", (data) => {
         draw();
     } else {
         if (myTurn) {
-            $("#message").text("You lose");
+            $("#message").text(name + " you lose");
         } else {
-            $("#message").text("You win");
+            $("#message").text(name + " you win");
         }
     
         $(".board button").attr("disabled", true);
