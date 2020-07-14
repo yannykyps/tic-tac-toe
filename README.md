@@ -2,4 +2,4 @@
 
 Using Node.js, Express.js and socket.io
 
-Potential feature to add is DB(Mongoose) to tally score and set player name. 
+Potential feature to add is DB(Mongoose) to store scores and player name. Currently just displaying name. 
